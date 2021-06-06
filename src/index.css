@@ -1,0 +1,109 @@
+/*login style*/
+.login{
+  background-image:url(../src/img/Would-You-Rather_Questions-680x430.jpg);
+  background-repeat:no-repeat;
+  background-size:cover;
+  overflow: hidden;
+}
+.header {
+  width: 100%;
+  margin: 10px;
+  padding: 10px;
+  text-align: center;
+  height: auto;
+  color: wheat;
+}
+.loginForm {
+    display: block;
+    width: 400px;
+    height:500px;
+    position: relative;
+    left: 25pc;
+    top: 10pc;
+    color: rgb(180, 53, 6);
+    font-size: 1.5em;
+}
+.tableSelec {
+  position: relative;
+  font-family: Arial;
+  width: 300px;
+  height: 30px;
+}
+.submit {
+  font-size: 1.5em;
+  color: wheat;
+  background-color:rgb(180, 53, 6) ;
+}
+footer {
+  color:rgb(180, 53, 6) ;
+  text-align: center;
+  font-size: 1.5em;
+}
+/*nav style*/
+.home {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.navbar {
+  background-color:rgb(235, 145, 112) ;
+  overflow: hidden;
+  height: 90px;
+  color: #381c02;
+  text-decoration: none;
+  padding-top: 20px;
+}
+.navbar li {
+  float: left;
+  color: black;
+  list-style-type: none;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 1.5em;
+
+}
+.navbar li:hover {
+  background-color: rgb(180, 53, 6);
+  color: #381c02;
+}
+.navbar li.active {
+  background-color: #381c02;
+  color: rgb(180, 53, 6);
+}
+.navbarRight {
+  float: right;
+}
+/* new quations*/
+.newQu {
+  position: relative;
+  top : 100px;
+  left: 300px;
+  width: 500px;
+  border:  black ;
+  border-style: solid;
+  padding: 20px;
+}
+/* leaderboard style*/
+.leaderBoard {
+  position: relative;
+  top : 100px;
+  left: 350px;
+  width: 500px;
+  background-color:rgb(235, 145, 112) ;
+}
+.image {
+  width: 50px;
+  height: 50px;
+}
+table, th, td {
+  border: 1px solid black;
+  text-align: center;
+}
+span {
+  font-size: .9em;
+}
+/*question card style*/
+.qu {
+  width: 242px;
+  background-color: #381c02;
+}
