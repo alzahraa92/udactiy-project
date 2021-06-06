@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import { handleInitialData }  from './actions/shared'
-import Routes from './components/Routes'
+import Private from './components/Private'
 import Nav from './components/Nav';
 
 class App extends Component {
@@ -12,14 +12,14 @@ class App extends Component {
     this.props.handleInitialData()
   }
   render() {
-    const { notLoggedIn } = this.props;
+    const { nologin } = this.props;
 
     return (
       <Router>
         <Fragment>
           <div className='App'>
             <Nav/>
-            <Routes notLoggedIn={notLoggedIn}/>
+            <Private nologin={nologin}/>
           </div>
         </Fragment>
       </Router>
@@ -29,12 +29,12 @@ class App extends Component {
 
 App.propTypes = {
   handleInitialData : PropTypes.func.isRequired,
-  notLoggedIn: PropTypes.bool.isRequired
+  nologin: PropTypes.bool.isRequired
 };
 
 function mapStateToProps ({ authedUser }) {
   return {
-    notLoggedIn: authedUser === null
+    nologin: authedUser === null
   }
 }
 

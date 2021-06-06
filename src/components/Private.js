@@ -10,11 +10,11 @@ import AboutQu from "./AboutQu"
 import Error from "./Error"
 import Logout from './Logout'
 
-function Routes(props) {
-  return <div className="container">
+function Private(props) {
+  return <div >
     <Switch>
       {
-        props.notLoggedIn ? <Route exact path='/'  component={Login}/> :
+        props.nologin ? <Route exact path='/'  component={Login}/> :
           <Fragment>
             <Route path='/home'  component={Dashboard} />
             <Route exact path='/leaderboard'  component={LeaderBoard} />
@@ -28,6 +28,6 @@ function Routes(props) {
   </div>;
 }
 
-Routes.propTypes = {notLoggedIn: PropTypes.any};
+Private.propTypes = {nologin: PropTypes.any};
 
-export default Routes;
+export default Private;

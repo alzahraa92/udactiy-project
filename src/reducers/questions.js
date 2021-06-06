@@ -1,6 +1,6 @@
 import {
     RECEIVE_QUESTIONS,
-    ADD_ANSWER,
+    ADD_ANSWER_QUESTION,
     ADD_QUESTION
   } from '../actions/questions';
   
@@ -11,27 +11,27 @@ import {
           ...state,
           ...action.questions
         };
-      case ADD_ANSWER:
-        return {
+        case ADD_QUESTION:
+          return {
             ...state,
-            [action.qid]: {
-              ...state[action.qid],
-              [action.answer]: {
-                ...state[action.qid][action.answer],
-                votes: state[action.qid][action.answer].votes.concat([
-                  action.authedUser
-                ])
+            [action.question.id]: action.question
+          };
+    
+        case ADD_ANSWER_QUESTION:
+          const { qid, answer, authedUser } = action.answerInfo;
+    
+          return {
+            ...state,
+            [qid]: {
+              ...state[qid],
+              [answer]: {
+                ...state[qid][answer],
+                votes: state[qid][answer].votes.concat([authedUser])
               }
             }
           };
-      case ADD_QUESTION:
-        const { question } = action;
-  
-        return {
-          ...state,
-          [question.id]: question
-        };
-      default:
-        return state;
+    
+        default:
+          return state;
+      }
     }
-  }

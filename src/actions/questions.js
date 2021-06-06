@@ -1,7 +1,7 @@
 import { saveQuestionAnswer, saveQuestion } from '../utils/api';
 import {addQuestionUser} from './users'
 export const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS';
-export const ADD_ANSWER = 'ADD_ANSWER';
+export const ADD_ANSWER_QUESTION = 'ADD_ANSWER';
 export const ADD_QUESTION = 'ADD_QUESTION';
 export function receiveQuestions(questions) {
     return {
@@ -9,9 +9,9 @@ export function receiveQuestions(questions) {
       questions
     };
 }
-export function addAnswer(authedUser, qid, answer) {
+export function addAnswerQuestion(authedUser, qid, answer) {
     return {
-      type: ADD_ANSWER,
+      type: ADD_ANSWER_QUESTION,
       authedUser,
       qid,
       answer
@@ -36,7 +36,7 @@ export function handleAddQuestion(optionOneText, optionTwoText, author) {
 export function handleAddAnswer(qid, answer) {
     return (dispatch, getState) => {
       const { authedUser } = getState();
-      dispatch(addAnswer(authedUser, qid, answer));
+      dispatch(addAnswerQuestion(authedUser, qid, answer));
       return saveQuestionAnswer({
         authedUser,
         qid,
