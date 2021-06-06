@@ -9,7 +9,7 @@ class UserCard extends Component {
       <div>
         <Fragment>
         <img src={user.avatarURL} className='image' alt={`Avatar of ${user.name}`}/>
-        <span>{user.name}</span>
+        <em>{user.name}</em>
         </Fragment>
       </div>  
     );

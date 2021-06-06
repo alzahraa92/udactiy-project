@@ -1,5 +1,7 @@
 /*login style*/
 .login{
+  padding: 0;
+  margin: 0;
   background-image:url(../src/img/Would-You-Rather_Questions-680x430.jpg);
   background-repeat:no-repeat;
   background-size:cover;
@@ -42,6 +44,7 @@ footer {
 /*nav style*/
 .home {
   margin: 0;
+  padding: 0%;
   font-family: Arial, Helvetica, sans-serif;
 }
 .navbar {
@@ -50,7 +53,8 @@ footer {
   height: 90px;
   color: #381c02;
   text-decoration: none;
-  padding-top: 20px;
+  padding-top: 15px;
+  border: solid 5px rgb(180, 53, 6) ;
 }
 .navbar li {
   float: left;
@@ -79,9 +83,11 @@ footer {
   top : 100px;
   left: 300px;
   width: 500px;
-  border:  black ;
-  border-style: solid;
+  border: solid 5px rgb(180, 53, 6) ;
+  border-radius: 5px;
   padding: 20px;
+  background-color:rgb(235, 145, 112) ;
+  font-size: 1.5em;
 }
 /* leaderboard style*/
 .leaderBoard {
@@ -92,8 +98,8 @@ footer {
   background-color:rgb(235, 145, 112) ;
 }
 .image {
-  width: 50px;
-  height: 50px;
+  width: 80px;
+  height: 70px;
 }
 table, th, td {
   border: 1px solid black;
@@ -102,8 +108,9 @@ table, th, td {
 span {
   font-size: .9em;
 }
-/*question card style*/
-.qu {
-  width: 242px;
-  background-color: #381c02;
+button {
+  border: solid 3px rgb(180, 53, 6);
+  border-radius: 5px;
+  width: 10pc;
+  background-color:rgb(235, 145, 112) ;
 }

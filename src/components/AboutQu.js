@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { Card, CardHeader,CardBody, CardTitle, FormGroup, Label, Input, Row, Col} from 'reactstrap';
 import { connect } from 'react-redux';
 import UserCard from './UserCard';
 import { handleAddAnswer } from '../actions/questions';
 import PropTypes from 'prop-types';
-
 class AboutQu extends Component {
   state = {
     selectedOption: ''
@@ -26,60 +24,58 @@ class AboutQu extends Component {
     const { selectedOption } = this.state;
 
     return (
-      <Row>
-        <Col sm="12" md={{ size: 6, offset: 3 }}>
-          <Card>
-            <CardHeader>
+      <div>
+          <form className='newQu'>
+            <header>
               <UserCard id={questionAuthor.id}/>
-            </CardHeader>
-            <CardBody>
-              <CardTitle>Would You Rather</CardTitle>
+            </header>
+            <div>
+              <h2>Would You Rather</h2>
               {answer ?
                 <div>
-                  <FormGroup>
-                    <FormGroup check disabled>
-                      <Label check>
-                        <Input type="radio" checked={answer==="optionOne"} readOnly/>{' '}
+                  <div>
+                    <div check disabled>
+                      <label check>
+                        <input type="radio" checked={answer==="optionOne"} readOnly/>{' '}
                         {question.optionOne.text}
-                      </Label>
-                    </FormGroup>
-                    <FormGroup check disabled>
-                      <Label check>
-                        <Input type="radio" checked={answer==="optionTwo"} readOnly/>{' '}
+                      </label>
+                    </div>
+                    <div check disabled>
+                      <label check>
+                        <input type="radio" checked={answer==="optionTwo"} readOnly/>{' '}
                         {question.optionTwo.text}
-                      </Label>
-                    </FormGroup>
-                  </FormGroup>
-                  <div className="progress">
-                    <div className="progress-one" style={{ width: `${percOne}%` }}>{`${percOne}%`}</div>
-                    <div className="progress-two" style={{ width: `${percTwo}%` }}>{`${percTwo}%`}</div>
+                      </label>
+                    </div>
                   </div>
-                  <div className="total">
-                    Total number of votes: {total}
+                  <div >
+                    <div  style={{ width: `${percOne}%` }}>{`${percOne}%`}</div>
+                    <div  style={{ width: `${percTwo}%` }}>{`${percTwo}%`}</div>
+                  </div>
+                  <div >
+                     Votes Num: {total}
                   </div>
                 </div>:
                 <form onSubmit={this.handleLogin}>
-                  <FormGroup tag="fieldset">
-                    <FormGroup >
-                      <Label >
-                        <Input type="radio" name="radio1" value="optionOne" onChange={this.radioSelected} />{' '}
+                  <div tag="fieldset">
+                    <div >
+                      <label >
+                        <input type="radio" name="radio1" value="optionOne" onChange={this.radioSelected} />{' '}
                         {question.optionOne.text}
-                      </Label>
-                    </FormGroup>
-                    <FormGroup >
-                      <Label >
-                        <Input type="radio" name="radio1" value="optionTwo" onChange={this.radioSelected} />{' '}
+                      </label>
+                    </div>
+                    <div >
+                      <label >
+                        <input type="radio" name="radio1" value="optionTwo" onChange={this.radioSelected} />{' '}
                         {question.optionTwo.text}
-                      </Label>
-                    </FormGroup>
-                  </FormGroup>
-                  <button disabled={selectedOption === ''}>add answer</button>
+                      </label>
+                    </div>
+                  </div>
+                  <button disabled={selectedOption === ''}>Choose</button>
                 </form>
               }
-            </CardBody>
-          </Card>
-        </Col>
-      </Row>
+            </div>
+          </form>
+      </div>
     );
   }
 }

@@ -1,6 +1,5 @@
 import {connect} from "react-redux";
-import React, { Component, Fragment } from "react";
-
+import React, { Component } from "react";
 import {   NavbarToggler } from "reactstrap";
 import { withRouter,  NavLink} from "react-router-dom";
 import PropTypes from "prop-types";
@@ -22,7 +21,7 @@ class Nav extends Component {
     return (
       <div clasName='home'>
           {authedUser &&
-          <Fragment>
+          <div>
             <NavbarToggler onClick={this.toggle}/>
             <div isOpen={this.state.isOpen} navbar>
               <form className="navbar" navbar>
@@ -30,22 +29,22 @@ class Nav extends Component {
                   <NavLink  to="/home"> Home</NavLink>
                 </li>
                 <li>
-                  <NavLink  to="/add">New Poll</NavLink>
+                  <NavLink exact to="/add">New Poll</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/leaderboard">LeaderBoard</NavLink>
+                  <NavLink exact to="/leaderboard">LeaderBoard</NavLink>
                 </li>
                 <div className='navbarRight'>
                 <li>
                   <UserCard id={authedUser}/>
                 </li>
                 <li>
-                  <NavLink to='/'>Logout</NavLink>
+                  <NavLink exact to='/'>Logout</NavLink>
                 </li>
                 </div>
               </form>
             </div>
-          </Fragment>
+          </div>
           }
       </div>
     );

@@ -5,7 +5,7 @@ export const Error = ({ history }) => (
   <div>
     <h2>error 404...</h2>
       <button  onClick={() => history.push("/")}>
-        Back Home
+        Back to login
       </button>
   </div>
 );
