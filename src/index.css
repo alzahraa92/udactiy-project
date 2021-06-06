@@ -4,7 +4,7 @@
   margin: 0;
   background-image:url(../src/img/Would-You-Rather_Questions-680x430.jpg);
   background-repeat:no-repeat;
-  background-size:cover;
+  background-size:100%;
   overflow: hidden;
 }
 .header {

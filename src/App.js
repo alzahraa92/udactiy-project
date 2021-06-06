@@ -17,7 +17,7 @@ class App extends Component {
     return (
       <Router>
         <Fragment>
-          <div className="main-container">
+          <div className='App'>
             <Nav/>
             <Routes notLoggedIn={notLoggedIn}/>
           </div>
