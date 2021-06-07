@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import UserCard from './UserCard';
-import { handleAddAnswer } from '../actions/questions';
+import { handleAddAnswer } from '../actions/users';
 import PropTypes from 'prop-types';
 class AboutQu extends Component {
   state = {

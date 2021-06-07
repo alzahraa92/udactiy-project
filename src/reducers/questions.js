@@ -11,14 +11,16 @@ import {
           ...state,
           ...action.questions
         };
+
         case ADD_QUESTION:
+          const { question } = action;
           return {
             ...state,
-            [action.question.id]: action.question
+            [question.id]: question,
           };
-    
+
         case ADD_ANSWER_QUESTION:
-          const { qid, answer, authedUser } = action.answerInfo;
+          const { qid, answer, authedUser } = action;
     
           return {
             ...state,
