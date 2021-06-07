@@ -1,25 +1,37 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
-import { BrowserRouter as Router } from 'react-router-dom';
-
-import { handleInitialData }  from './actions/shared'
-import Private from './components/Private'
-import Nav from './components/Nav';
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import LoadingBar from 'react-redux-loading'
+import { handleInitialData } from './actions/shared'
+import Nav from './components/Nav'
+import Login from './components/Login'
+import Home from './components/Home'
+import AboutQu from './components/AboutQu'
+import LeaderBoard from './components/LeaderBoard'
+import NewPoll from './components/NewPoll'
 
 class App extends Component {
-  componentDidMount(){
-    this.props.handleInitialData()
-  }
-  render() {
-    const { nologin } = this.props;
 
+	componentDidMount() {
+		this.props.dispatch(handleInitialData())
+	}
+  render() {
     return (
       <Router>
         <Fragment>
-          <div className='App'>
-            <Nav/>
-            <Private nologin={nologin}/>
+          {
+            !this.props.nologin &&
+            <Nav />
+          }
+          <LoadingBar/>
+          <div >
+            <div>
+              <Route path='/login' exact component={Login} />
+              <Route path='/' exact component={Home} />
+              <Route path='/questions/:id' component={AboutQu} />
+              <Route path='/leaderboard' exact component={LeaderBoard} />
+              <Route path='/add' exact component={NewPoll} />
+            </div>
           </div>
         </Fragment>
       </Router>
@@ -27,24 +39,11 @@ class App extends Component {
   }
 }
 
-App.propTypes = {
-  handleInitialData : PropTypes.func.isRequired,
-  nologin: PropTypes.bool.isRequired
-};
-
 function mapStateToProps ({ authedUser }) {
   return {
     nologin: authedUser === null
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    handleInitialData: () => {
-      dispatch(handleInitialData())
-    }
-  }
-}
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps)(App)
