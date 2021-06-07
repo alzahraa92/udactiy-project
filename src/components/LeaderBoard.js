@@ -13,8 +13,8 @@ function Leaderboard(props) {
             <th>Num</th>
             <th>Profile</th>
             <th>User</th>
-            <th>Questions Asked</th>
-            <th>Questions Answered</th>
+            <th>Questions Ask</th>
+            <th>Questions Answer</th>
           </tr>
         </thead>
         <tbody>

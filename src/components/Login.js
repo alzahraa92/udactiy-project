@@ -1,9 +1,9 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { setAuthedUser } from '../actions/authedUser'
 
-class Login extends PureComponent {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {userId : ''};
@@ -28,12 +28,11 @@ class Login extends PureComponent {
     const { users } = this.props;
     const { userId } = this.state;
     return (
-        <div className='login'>
+        <div className='Login'>
           <h1 className='header'>Would You Reather</h1>
           <form onSubmit={this.handleLogin} className='loginForm'>
-              <label for="userSelect"><h3>Select User</h3></label>
+              <label><h3>Select User</h3>
               <select
-                  id="userSelect"
                   type="select"
                   name="select"
                   value={userId}
@@ -48,6 +47,7 @@ class Login extends PureComponent {
                   </option>)
                 }
               </select>
+              </label>
             <button disabled={userId === ''} type="submit" value="Submit" calssName="submit">login</button>
           </form>
       </div>

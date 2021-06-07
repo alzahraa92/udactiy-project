@@ -1,45 +1,38 @@
 import {connect} from "react-redux";
 import React, { Component } from "react";
-import {   NavbarToggler } from "reactstrap";
 import { withRouter,  NavLink} from "react-router-dom";
 import PropTypes from "prop-types";
 import UserCard from "./UserCard";
+import { resetAuthedUser } from '../actions/authedUser';
 class Nav extends Component {
-  state = {
-    isOpen: false
-  };
-
-  toggle = () =>  {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
-  };
-
+  handleLogout =(e) => {
+    const { dispatch } = this.props;
+    e.preventDefault();
+		dispatch(resetAuthedUser());
+	};
   render() {
     const { authedUser } = this.props;
-
     return (
-      <div clasName='home'>
+      <div clasName='Home'>
           {authedUser &&
           <div>
-            <NavbarToggler onClick={this.toggle}/>
-            <div isOpen={this.state.isOpen} navbar>
-              <form className="navbar" navbar>
+            <div  >
+              <form className="navbar" >
                <li>
                   <NavLink  to="/home"> Home</NavLink>
                 </li>
                 <li>
-                  <NavLink exact to="/add">New Poll</NavLink>
+                  <NavLink  to="/add">New Poll</NavLink>
                 </li>
                 <li>
-                  <NavLink exact to="/leaderboard">LeaderBoard</NavLink>
+                  <NavLink  to="/leaderboard">LeaderBoard</NavLink>
                 </li>
                 <div className='navbarRight'>
                 <li>
                   <UserCard id={authedUser}/>
                 </li>
                 <li>
-                  <NavLink exact to='/'>Logout</NavLink>
+                    <button onClick={this.handleLogout} > Logout </button>
                 </li>
                 </div>
               </form>
