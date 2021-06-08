@@ -1,73 +1,92 @@
-import React, { Component,Fragment } from 'react'
-import { connect } from 'react-redux'
-import {  handleAddQuestion} from '../actions/questions'
-import { Redirect } from 'react-router-dom'
+import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { handleAddQuestion } from '../actions/shared';
+import UserCard from './UserCard'
 
 class NewPoll extends Component {
-    state = {
-        optionOne: '',
-        optionTwo: '',
-        toHome: false
-    };
+  state = {
+    optionOne: '',
+    optionTwo: '',
+    noLogger: false,
+  }
 
-    handleOption= (e) => {
-      const name = e.target.name;
-      const value = e.target.value;
-      this.setState({
-        [name]: value
-      });
-    };
-  
-    handleSubmit = (e) => {
-      const { optionOne, optionTwo } = this.state;
-      const { dispatch } = this.props;
-  
-      e.preventDefault();
-  
-      this.setState(
-        {
-          optionOne: '',
-          optionTwo: '',
-          toHome: true
-        },
-        () => dispatch(handleAddQuestion(optionOne, optionTwo))
-      );
-    };
+  handleChange = function(event, optionNum) {
+    const text = event.target.value;
 
-    render() {
-      const { optionOne, optionTwo, toHome } = this.state;
+    this.setState(function(preState) {
+      return optionNum === 1
+        ? { ...preState, 'optionOne': text }
+        : { ...preState, 'optionTwo': text };
+    });
+  }
 
-      if (toHome === true) return <Redirect to="/" />;
-        return (
-            <div className="newQu">
-              <Fragment>
-              <form onSubmit={this.handleSubmit}>
-                    <h3>Would You Rather</h3>
-                    <ul >
-                      <li>
-                        <label controlId="optionOne">Option One</label>
-                        <input type="text"
-                          name="optionOne"
-                          value={optionOne}
-                          onChange={this.handleOption}
-                          placeholder="Option One" />
-                      </li>
-                      <hr/>
-                      <li>
-                        <label controlId="optionTwo">Option Two</label>
-                        <input type="text"
-                          name="optionTwo"
-                          value={optionTwo}
-                          onChange={this.handleOption}
-                          placeholder="Option Two" />
-                      </li>
-                      <button disabled={optionOne === '' || optionTwo === ''}>Add</button>
-                    </ul>
-              </form>
-              </Fragment>
-            </div>
-          );
+  handleSubmit = function(event) {
+    event.preventDefault();
+
+    const { optionOne, optionTwo } = this.state;
+    const { dispatch } = this.props;
+    dispatch(handleAddQuestion(optionOne, optionTwo));
+
+    this.setState(function(preState) {
+      return {
+        ...preState,
+        noLogger: true,
+      };
+    })
+  }
+
+  render() {
+    const { optionOne, optionTwo, noLogger } = this.state;
+    const { authedUser} = this.props;
+    if (noLogger === true) {
+      return <Redirect to='/' />
     }
+
+    return (
+      <div className="newQu">
+        <UserCard id={authedUser}/>
+        <div>
+          <label>
+            <h4>Would You Rather? </h4>
+          </label>
+          <form
+            onSubmit={(event) => this.handleSubmit(event)}
+          >
+            <div className="option">
+              <textarea
+                value={optionOne}
+                onChange={(event) => this.handleChange(event, 1)}
+              />
+              <em > Option One </em>
+            </div>
+            <br />
+            <div className="option st-option">
+              <textarea
+                value={optionTwo}
+                onChange={(event) => this.handleChange(event, 2)}
+              />
+              <em> Option Two </em>
+            </div>
+            <hr />
+            <button
+              type='submit'
+              disabled={optionOne === '' || optionTwo === ''}
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
 }
 
-export default connect()(NewPoll);
+function mapStateToProps({ authedUser, users }) {
+  return {
+    authedUser,
+    users,
+  };
+}
+
+export default connect(mapStateToProps)(NewPoll)

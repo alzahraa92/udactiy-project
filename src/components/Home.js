@@ -1,86 +1,66 @@
-import React, { Component ,Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import {  NavLink  } from 'reactstrap';
-import classnames from 'classnames';
-import Question from './Question';
+import AboutQu from './AboutQu';
 
-class DashBoard extends Component {
+class Home extends Component {
   state = {
-    activation: '1'
-  };
+    answerVeiw: false,
+  }
 
-  toggle(num) {
-    if (this.state.activation !== num) {
-      this.setState({
-        activation: num
-      });
-    }
+  handleQuestionList = function(answered) {
+    this.setState(function() {
+      return {
+        answerVeiw: answered
+      };
+    });
   }
 
   render() {
-    const { unanswerQuestions, answerQuestions } = this.props;
-    return (
-      <div className='leaderBoard'>
-        <Fragment>
-        <table>
-          <tr nums>
-          <th>
-            <NavLink
-              className={classnames({ active: this.state.activation === '1' })}
-              onClick={() => { this.toggle('1'); }}
+    const { authedUser, questions } = this.props;
+    const { answerVeiw } = this.state;
+   
+    const questionsArray = Object.keys(questions).map((key) => questions[key]);
+    const filteredQuestions = questionsArray.filter(
+      function(question) {
+      const contains = ( question.optionOne.votes.indexOf(authedUser) > -1 || question.optionTwo.votes.indexOf(authedUser) > -1  );
+      return answerVeiw ? contains : !contains;
+    });
+    const sorted = filteredQuestions.sort((a, b) => b.timestamp - a.timestamp);
+
+      return (
+        <div className='leaderBoard' >
+          <div>
+            <button
+              className={!answerVeiw ? 'unanswer active' : 'unanswer'}
+              onClick={(event) => this.handleQuestionList(false)}
             >
-             <h2> Unanswer </h2>
-            </NavLink>
-          </th>
-          <th>
-            <NavLink
-              className={classnames({ active: this.state.activation === '2' })}
-              onClick={() => { this.toggle('2'); }}
+              Unanswer
+            </button>
+            <button
+              className={answerVeiw ? 'answer active' : 'answer'}
+              onClick={(event) => this.handleQuestionList(true)}
             >
-              <h2>Answer </h2>
-            </NavLink>
-          </th>
-          </tr>
-          <tr activation={this.state.activation}>
-          <th numId="1">
-              {unanswerQuestions.map(qid =>
-                <div key={qid} >
-                  <Question id={qid}/>
-                  <br/>
-                </div>
-              )}
-          </th>
-          <th numId="2">
-              {answerQuestions.map(qid =>
-                <div key={qid} >
-                  <Question id={qid}/>
-                  <br/>
-                </div>
-              )}
-          </th>
-          </tr>
-        </table>
-        </Fragment>
-      </div>
+              Answer
+            </button>
+          </div>
+          <ul>
+            {sorted.map((question) => (
+              <li key={question.id}>
+                <AboutQu question={question} />
+              </li>
+            ))}
+          </ul>
+        </div>
     );
   }
 }
 
-DashBoard.propTypes = {
-  answerPolls : PropTypes.array,
-  unanswerPolls : PropTypes.array
-};
-
-function mapStateToProps ({ questions, users, authedUser }) {
-  const user = users[authedUser];
-  const answerQuestions = Object.keys(user.answers)
-    .sort((a,b) => questions[b].timestamp - questions[a].timestamp);
+function mapStateToProps({ authedUser, questions, users }) {
   return {
-    unanswerQuestions : Object.keys(questions).filter(qid => !answerQuestions.includes(qid))
-      .sort((a,b) => questions[b].timestamp - questions[a].timestamp),
-    answerQuestions
-  }
+    authedUser,
+    questions,
+    users,
+  };
 }
 
-export default connect(mapStateToProps)(DashBoard)
+export default connect(mapStateToProps)(Home)

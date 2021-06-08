@@ -1,127 +1,81 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import UserCard from './UserCard';
-import { handleAddAnswer } from '../actions/users';
-import PropTypes from 'prop-types';
+import UserCard from './UserCard'
+import * as actions from '../actions/questions';
+
 class AboutQu extends Component {
-  state = {
-    selectedOption: ''
-  };
-
-  radioSelected = (e) => {
-    this.setState({
-      selectedOption: e.target.value
-    });
-  };
-
-  handleLogin = (e) => {
-    e.preventDefault();
-    this.props.saveQuestionAnswer(this.state.selectedOption);
-  };
+  handleOpion = function(option) {
+    console.log(this.props)
+    const { answerQuestion, authedUser, question } = this.props;
+    const answer = option === 1 ? 'optionOne' : 'optionTwo';
+    answerQuestion(authedUser, question.id, answer);
+  }
 
   render() {
-    const { question, questionAuthor, answer, total, percOne, percTwo} = this.props;
-    const { selectedOption } = this.state;
+    const { authedUser, question, users } = this.props;
+    const questionAuthor = users[question.author];
+    const answers = Object.keys(users[authedUser].answers);
+    const answer = answers.indexOf(question.id) > -1 ? true : false;
+    const voteOne = question.optionOne.votes.length;
+    const voteTwo = question.optionTwo.votes.length;
+    const total = voteOne + voteTwo;
+    const percVoteone = (voteOne / total).toFixed(2) * 100;
+    const percVotetwo = (voteTwo / total).toFixed(2) * 100;
 
     return (
-      <div>
-          <form className='newQu'>
-            <header>
-              <UserCard id={questionAuthor.id}/>
-            </header>
-            <div>
-              <h2>Would You Rather</h2>
-              {answer ?
-                <div>
-                  <div>
-                    <div check disabled>
-                      <label check>
-                        <input type="radio" checked={answer==="optionOne"} readOnly/>{' '}
-                        {question.optionOne.text}
-                      </label>
-                    </div>
-                    <div check disabled>
-                      <label check>
-                        <input type="radio" checked={answer==="optionTwo"} readOnly/>{' '}
-                        {question.optionTwo.text}
-                      </label>
-                    </div>
-                  </div>
-                  <div >
-                    <div  style={{ width: `${percOne}%` }}>{`${percOne}%`}</div>
-                    <div  style={{ width: `${percTwo}%` }}>{`${percTwo}%`}</div>
-                  </div>
-                  <div >
-                     Votes Num: {total}
-                  </div>
-                </div>:
-                <form onSubmit={this.handleLogin}>
-                  <div tag="fieldset">
-                    <div >
-                      <label >
-                        <input type="radio" name="radio1" value="optionOne" onChange={this.radioSelected} />{' '}
-                        {question.optionOne.text}
-                      </label>
-                    </div>
-                    <div >
-                      <label >
-                        <input type="radio" name="radio1" value="optionTwo" onChange={this.radioSelected} />{' '}
-                        {question.optionTwo.text}
-                      </label>
-                    </div>
-                  </div>
-                  <button disabled={selectedOption === ''}>Choose</button>
-                </form>
-              }
-            </div>
-          </form>
+      <div >
+      <link to={`/questions/${question.id}`} style={{ textDecoration: 'none' }} >
+        <form >
+       <div><UserCard  id={questionAuthor.id}/> </div>
+        <label>Would You Rather?</label>
+        <ul>
+          <li>
+          <option
+            className={
+              question.optionOne.votes.indexOf(authedUser) > -1
+              ? 'about-answer'
+              : answer
+                ? 'answer'
+                : ''
+            }
+            onClick={(event) => this.handleOpion(1)}
+          >
+            {question.optionOne.text}
+          </option>
+          {answer && <span>
+            Votes: {question.optionOne.votes.length} ({percVoteone}%)
+          </span>}
+          </li>
+          <li>
+          <option
+            className={
+              question.optionTwo.votes.indexOf(authedUser) > -1
+              ? 'option-two about-answer'
+              : answer
+                ? 'option-two answer'
+                : 'option-two'
+            }
+            onClick={(event) => this.handleOpion(2)}
+          >
+            {question.optionTwo.text}
+          </option>
+          {answer && <span>
+            Votes: {question.optionTwo.votes.length} ({percVotetwo}%)
+          </span>}
+          </li>
+        </ul>
+        </form>
+      </link>
       </div>
     );
   }
 }
 
-AboutQu.propTypes = {
-  question: PropTypes.object,
-  questionAuthor: PropTypes.object,
-  answer: PropTypes.string,
-  percOne: PropTypes.string.isRequired,
-  percTwo: PropTypes.string.isRequired
-};
-
-function financial(x) {
-  return Number.parseFloat(x).toFixed(2);
-}
-
-function mapStateToProps ({ questions, users, authedUser }, { match }) {
-  const answers = users[authedUser].answers;
-  let answer, percOne, percTwo, total;
-  const { id } = match.params;
-  const question = questions[id];
-  if (answers.hasOwnProperty(question.id)) {
-    answer = answers[question.id]
-  }
-  const questionAuthor = users[question.author];
-  total = question.optionOne.votes.length + question.optionTwo.votes.length;
-  percOne = financial((question.optionOne.votes.length / total) * 100);
-  percTwo = financial((question.optionTwo.votes.length / total) * 100);
+function mapStateToProps({ authedUser, users }) {
   return {
-    question,
-    questionAuthor,
-    answer,
-    total,
-    percOne,
-    percTwo
-  }
+    authedUser,
+    users,
+  };
 }
 
-function mapDispatchToProps(dispatch, props) {
-  const { id } = props.match.params;
-
-  return {
-    saveQuestionAnswer: (answer) => {
-      dispatch(handleAddAnswer(id, answer))
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(AboutQu)
+export default connect(mapStateToProps, actions)(AboutQu);

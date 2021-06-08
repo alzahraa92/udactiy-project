@@ -1,5 +1,5 @@
 /*login style*/
-.Login{
+.login{
   padding: 0;
   margin: 0;
   background-image:url(../src/img/Would-You-Rather_Questions-680x430.jpg);
@@ -32,14 +32,10 @@
   height: 30px;
 }
 .submit {
-  font-size: 1.5em;
+  font-size: 1em;
   color: wheat;
   background-color:rgb(180, 53, 6) ;
-}
-footer {
-  color:rgb(180, 53, 6) ;
-  text-align: center;
-  font-size: 1.5em;
+  width: 200px;
 }
 /*nav style*/
 .Home {
@@ -80,7 +76,7 @@ footer {
 /* new quations*/
 .newQu {
   position: relative;
-  top : 100px;
+  top : 50px;
   left: 300px;
   width: 500px;
   border: solid 5px rgb(180, 53, 6) ;
@@ -92,7 +88,7 @@ footer {
 /* leaderboard style*/
 .leaderBoard {
   position: relative;
-  top : 100px;
+  top : 50px;
   left: 350px;
   width: 500px;
   background-color:rgb(235, 145, 112) ;
@@ -113,4 +109,29 @@ button {
   border-radius: 5px;
   width: 10pc;
   background-color:rgb(235, 145, 112) ;
+}
+/*home*/
+.answer {
+  padding: 5px;
+  margin-left: 140px;
+}
+.answer.active {
+  background-color: antiquewhite;
+}
+.unanswer {
+  padding: 5px;
+  margin-left: 20px;
+}
+.unanswer.active {
+  background-color: antiquewhite;
+}
+/*about qu*/
+.about {
+  position: relative;
+  top : 50px;
+  width: 300px;
+  background-color:rgb(235, 145, 112) ;
+}
+.option {
+ text-decoration: none;
 }

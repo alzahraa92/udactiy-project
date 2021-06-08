@@ -1,77 +1,89 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
-import { setAuthedUser } from '../actions/authedUser'
+import { Redirect, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { setAuthedUser, resetAuthedUser } from '../actions/authedUser';
 
 class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {userId : ''};
-    this.handleInputUser = this.handleInputUser.bind(this);
-    this.handleLogin = this.handleLogin.bind(this);
+  state = {
+    userId: null,
+    noLogger: false,
   }
 
-  handleInputUser(event) {
-    this.setState({userId: event.target.value});
+  handleSelectChanged = function(event) {
+    const userId = event.target.value;
+
+    this.setState(function(preState) {
+      return {
+        ...preState,
+        userId,
+      };
+    });
   }
 
-  handleLogin(event) {
+  handleLogin = function(event) {
     const { userId } = this.state;
-    const { userName } = this.props;
-    if (userId) {
-      userName(userId);
-    } 
-    event.preventDefault();
+    const { dispatch } = this.props;
+
+    dispatch(setAuthedUser(userId));
+
+    this.setState(function(preState) {
+      return {
+        ...preState,
+        noLogger: true,
+      };
+    });
+  }
+
+  componentDidMount() {
+    this.props.dispatch(resetAuthedUser())
   }
 
   render() {
-    const { users } = this.props;
-    const { userId } = this.state;
+    const { userId, noLogger } = this.state;
+    const { history, users } = this.props;
+    const selected = userId ? userId : 0;
+    if(noLogger) {
+      const redirect = history.location.state;
+      if (redirect != null) {
+        return <Redirect to={redirect} push={true} />
+      }
+      return <Redirect to='/' />
+    }
     return (
-        <div className='Login'>
-          <h1 className='header'>Would You Reather</h1>
-          <form onSubmit={this.handleLogin} className='loginForm'>
-              <label><h3>Select User</h3>
-              <select
-                  type="select"
-                  name="select"
-                  value={userId}
-                  onChange={this.handleInputUser}
-                  className='tableSelec'
-              >
-                <option value="" disabled>Please select</option>
-                {
-                  Object.keys(users).map(user =>
-                  <option key={user} value={user}>
-                    {users[user].name}
-                  </option>)
-                }
-              </select>
-              </label>
-            <button disabled={userId === ''} type="submit" value="Submit" calssName="submit">login</button>
-          </form>
+      <div className="login">
+        <h1 className='header'>Would You Reather</h1>
+        <form className='loginForm'>
+            <select 
+            value={selected}
+            onChange={(event) => this.handleSelectChanged(event)}
+            className="tableSelec"
+            >
+              <option value={0} disabled>Select user</option>
+              {Object.keys(users).map(function(key) {
+                return (
+                  <option value={users[key].id} key={key}>{users[key].id}</option>
+                );
+              })}
+            </select>
+          <button
+            disabled={userId === null}
+            onClick={(event) => this.handleLogin(event)}
+            className="submit"
+          >
+            Login
+          </button>
+        </form>
       </div>
     );
   }
 }
 
-Login.propTypes = {
-  users: PropTypes.object.isRequired,
-  userName: PropTypes.func.isRequired
-};
-
-function mapStateToProps ({ users }) {
+function mapStateToProps({ users }) {
   return {
-    users
-  }
+    users,
+  };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    userName: (id) => {
-      dispatch(setAuthedUser(id))
-    }
-  }
-}
+export default withRouter(connect(mapStateToProps)(Login))
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+

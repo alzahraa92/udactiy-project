@@ -1,3 +1,4 @@
+// @flow
 let users = {
   sarahedo: {
     id: 'sarahedo',
@@ -33,7 +34,6 @@ let users = {
     questions: ['6ni6ok3ym7mf1p33lnez', 'xj352vofupe1dqz9emx13r'],
   }
 }
-
 let questions = {
   "8xf0y6ziyjabvozdd253nd": {
     id: '8xf0y6ziyjabvozdd253nd',
@@ -58,7 +58,7 @@ let questions = {
     },
     optionTwo: {
       votes: ['johndoe', 'sarahedo'],
-      text: 'become a supervillain'
+      text: 'become a supervillian'
     }
   },
   "am8ehyc8byjqgar0jgpub9": {
@@ -150,14 +150,13 @@ function formatQuestion ({ optionOneText, optionTwoText, author }) {
 export function _saveQuestion (question) {
   return new Promise((res, rej) => {
     const authedUser = question.author;
-    const formattedQuestion = formatQuestion(question);
+    const formattedQuestion = formatQuestion(question)
 
     setTimeout(() => {
       questions = {
         ...questions,
         [formattedQuestion.id]: formattedQuestion
       }
-      
       users = {
         ...users,
         [authedUser]: {
@@ -165,7 +164,6 @@ export function _saveQuestion (question) {
           questions: users[authedUser].questions.concat([formattedQuestion.id])
         }
       }
-
       res(formattedQuestion)
     }, 1000)
   })

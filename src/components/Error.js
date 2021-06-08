@@ -4,7 +4,7 @@ import PropTypes from "prop-types"
 export const Error = ({ history }) => (
   <div>
     <h2>error 404...</h2>
-      <button  onClick={() => history.push("/")}>
+      <button  onClick={() => history.push("/login")}>
         Back to login
       </button>
   </div>
