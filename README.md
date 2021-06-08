@@ -40,3 +40,9 @@ Frontend
    * Html
    * Css
    * JSX
+## To get started developing right away:
+
+* install all project dependencies with `npm install`
+* start the development server with `npm start` OR `yarn start`
+## overVeiw
+![Website screenshot](./src/img/Screenshot .png)
