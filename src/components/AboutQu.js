@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import UserCard from './UserCard'
 import * as actions from '../actions/questions';
@@ -24,13 +25,16 @@ class AboutQu extends Component {
 
     return (
       <div >
-      <link to={`/questions/${question.id}`} style={{ textDecoration: 'none' }} >
+      <Link to={`/questions/${question.id}`} style={{ textDecoration: 'none' }} >
         <form >
+          <hr />
        <div><UserCard  id={questionAuthor.id}/> </div>
+       <br />
         <label>Would You Rather?</label>
+        <br/>
         <ul>
           <li>
-          <option
+          <em
             className={
               question.optionOne.votes.indexOf(authedUser) > -1
               ? 'about-answer'
@@ -41,13 +45,14 @@ class AboutQu extends Component {
             onClick={(event) => this.handleOpion(1)}
           >
             {question.optionOne.text}
-          </option>
+          </em> 
           {answer && <span>
             Votes: {question.optionOne.votes.length} ({percVoteone}%)
           </span>}
           </li>
+          <br/>
           <li>
-          <option
+          <em
             className={
               question.optionTwo.votes.indexOf(authedUser) > -1
               ? 'option-two about-answer'
@@ -58,14 +63,18 @@ class AboutQu extends Component {
             onClick={(event) => this.handleOpion(2)}
           >
             {question.optionTwo.text}
-          </option>
+          </em>
           {answer && <span>
             Votes: {question.optionTwo.votes.length} ({percVotetwo}%)
-          </span>}
+          </span> }
           </li>
         </ul>
+        <br/>
+        {answer && <span>
+            Toatal Votes: {total}
+          </span>}
         </form>
-      </link>
+      </Link>
       </div>
     );
   }
