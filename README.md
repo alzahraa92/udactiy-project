@@ -45,4 +45,4 @@ Frontend
 * install all project dependencies with `npm install`
 * start the development server with `npm start` OR `yarn start`
 ## OverVeiw
-![Website screenshot](./src/img/Screenshot.png)
+![Website screenshot](./src/img/Screenshot.jpeg)
