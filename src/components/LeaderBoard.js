@@ -36,7 +36,7 @@ function LeaderBoard(props) {
   )
 }
 
-Leaderboard.propTypes = {
+LeaderBoard.propTypes = {
   users: PropTypes.array.isRequired
 };
 
@@ -48,4 +48,4 @@ const mapStateToProps = ({ users }) => {
   }
 };
 
-export default connect(mapStateToProps)(Leaderboard)
+export default connect(mapStateToProps)(LeaderBoard)
