@@ -3,7 +3,7 @@ import React from "react"
 import PropTypes from 'prop-types';
 import { NavLink } from "react-router-dom";
 
-function Leaderboard(props) {
+function LeaderBoard(props) {
   const { users } = props;
   return (
     <div className='leaderBoard'>

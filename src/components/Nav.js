@@ -22,7 +22,7 @@ function Nav(props) {
         </li>
         <li>
           <NavLink to='/leaderboard' >
-            Leaderboard
+            LeaderBoard
           </NavLink>
         </li>
         {
