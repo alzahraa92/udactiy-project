@@ -28,7 +28,7 @@ class App extends Component {
                   <PrivateRoute path='/add' exact component={NewPoll} loggedIn={loggedIn} />
                   <PrivateRoute path='/questions/:id' exact component={Question} loggedIn={loggedIn} />
                   <Route path='/login' exact component={Login} />
-                  <Route  component={Error} />
+                  <Route  path='/' component={Error} />
                 </Switch>
               </div>
               </div>

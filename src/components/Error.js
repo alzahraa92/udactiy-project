@@ -16,9 +16,9 @@ class Error extends Component {
   }
 }
 
-function mapStateToProps({ authedUser }) {
+function mapStateToProps({ users}) {
   return {
-    loggedIn: authedUser !== null,
+   users,
   };
 }
 
