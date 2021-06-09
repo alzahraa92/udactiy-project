@@ -8,7 +8,7 @@ function Nav(props) {
   const loggedIn = authedUser !== null
 
   return (
-    <nav clasName='Home'>
+    <nav className='home'>
       <div className="navbar"  >
         <li>
           <NavLink to='/' exact >
@@ -28,7 +28,7 @@ function Nav(props) {
         {
           loggedIn
           ? 
-          <div calssName="navbarRight">
+          <div className='navbarRight'>
             <li >
               <UserCard id={authedUser}/>
             </li>
@@ -40,7 +40,8 @@ function Nav(props) {
               </NavLink>
             </li>
           </div>
-          : <li></li>
+          : <li>
+          </li>
         }
         </div>
     </nav>

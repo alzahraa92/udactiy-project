@@ -1,6 +1,6 @@
 import React from 'react';
-import { Route} from 'react-router-dom';
-import Error from "./Error";
+import { Route,withRouter,Redirect } from 'react-router-dom';
+
 
 function PrivateRoute({ component: Component, ...rest }) {
   const redirect = rest.location.pathname;
@@ -10,7 +10,7 @@ function PrivateRoute({ component: Component, ...rest }) {
       return (
         rest.loggedIn
         ? <Component {...props} />
-        : <Error to={{
+        : <Redirect to={{
           pathname: '/login',
           state: redirect
           }} />
@@ -19,4 +19,4 @@ function PrivateRoute({ component: Component, ...rest }) {
   );
 }
 
-export default (PrivateRoute);
+export default withRouter(PrivateRoute);
