@@ -1,12 +1,14 @@
 import React from "react"
 import PropTypes from "prop-types"
+import { NavLink } from "react-router-dom";
 
 export const Error = ({ history }) => (
-  <div>
+  <div className="newQu">
     <h2>error 404...</h2>
-      <button  onClick={() => history.push("/login")}>
-        Back to login
-      </button>
+    <h3>back to login</h3>
+         <div >
+              <NavLink  to="/login" className="close">back</NavLink>
+         </div>
   </div>
 );
 

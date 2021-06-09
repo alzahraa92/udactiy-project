@@ -22,11 +22,9 @@ class App extends Component {
       <Router>
         <Fragment>
         <LoadingBar />
-          {loggedIn !== null && (
           <div >
             <Nav />
             </div>
-          )}
               <div>
                 <Switch>
                   <PrivateRoute path='/' exact component={Home} loggedIn={loggedIn} />
@@ -36,6 +34,7 @@ class App extends Component {
                   <Route path='/login' exact component={Login} />
                   <Route component={Error} />
                 </Switch>
+                
               </div>
         </Fragment>
       </Router>
