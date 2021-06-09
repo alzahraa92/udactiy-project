@@ -1,13 +1,16 @@
 import { connect } from "react-redux"
-import React, {Fragment} from "react"
+import React from "react"
 import PropTypes from 'prop-types';
+import { NavLink } from "react-router-dom";
 
 function Leaderboard(props) {
   const { users } = props;
   return (
-    <div>
-      <Fragment>
-      <table className='leaderBoard'>
+    <div className='leaderBoard'>
+      <div >
+              <NavLink  to="/" className="close">back</NavLink>
+      </div>
+      <table >
         <thead>
           <tr>
             <th>Num</th>
@@ -29,7 +32,6 @@ function Leaderboard(props) {
           ))}
         </tbody>
       </table>
-      </Fragment>
     </div>
   )
 }

@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { handleAddQuestion } from '../actions/shared';
-import UserCard from './UserCard'
+import UserCard from './UserCard';
+import { NavLink } from "react-router-dom";
 
 class NewPoll extends Component {
   state = {
@@ -45,6 +46,9 @@ class NewPoll extends Component {
 
     return (
       <div className="newQu">
+         <div >
+              <NavLink  to="/" className="close">back</NavLink>
+         </div>
         <UserCard id={authedUser}/>
         <div>
           <label>
