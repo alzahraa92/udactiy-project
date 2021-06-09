@@ -10,18 +10,23 @@ import NewPoll from './components/NewPoll';
 import Error from './components/Error';
 import Question from './components/Question';
 import PrivateRoute from './components/PrivateRoute';
+import LoadingBar from 'react-redux-loading';
 
 class App extends Component {
   componentDidMount() {
     this.props.dispatch(handleInitialData())
   }
   render() {
-    const { loggedIn } = this.props;
+    const { loggedIn, authedUser} = this.props;
     return (
       <Router>
         <Fragment>
+        <LoadingBar />
+          {authedUser !== null && (
           <div >
             <Nav />
+            </div>
+          )}
               <div>
                 <Switch>
                   <PrivateRoute path='/' exact component={Home} loggedIn={loggedIn} />
@@ -32,7 +37,6 @@ class App extends Component {
                   <Route component={Error} />
                 </Switch>
               </div>
-          </div>
         </Fragment>
       </Router>
     );
