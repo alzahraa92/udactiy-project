@@ -8,7 +8,7 @@ function Question(props) {
   const { id, questions } = props;
   const question = questions[id];
   if(question == null) {
-    return <Redirect from='*' to='/' />
+    return <Redirect from='*' to='/not-found' />
   }
   return (
     <div className="newQu">

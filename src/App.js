@@ -6,6 +6,7 @@ import Home from './components/Home';
 import LeaderBoard from './components/LeaderBoard';
 import Login from './components/Login';
 import Nav from './components/Nav';
+import Error from './components/Error';
 import NewPoll from './components/NewPoll';
 import Question from './components/Question';
 import PrivateRoute from './components/PrivateRoute';
@@ -23,12 +24,12 @@ class App extends Component {
             <Nav />
               <div>
                 <Switch>
-                  <PrivateRoute path='/' exact component={Home} loggedIn={loggedIn} />
+                  <PrivateRoute path='/' exact component= {Home} loggedIn={loggedIn} />
                   <PrivateRoute path='/leaderboard' exact component={LeaderBoard} loggedIn={loggedIn} />
                   <PrivateRoute path='/add' exact component={NewPoll} loggedIn={loggedIn} />
                   <PrivateRoute path='/questions/:id' exact component={Question} loggedIn={loggedIn} />
                   <Route path='/login' exact component={Login} />
-                  <Route  path='/' component={Error} />
+                  <Route  component={Error}  />
                 </Switch>
               </div>
               </div>

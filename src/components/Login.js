@@ -41,10 +41,10 @@ class Login extends Component {
   render() {
     const { userId, noLogger } = this.state;
     const { history, users } = this.props;
-    const selected = userId ? userId : 0;
+    const selected = userId ? userId : -1;
     if(noLogger) {
       const redirect = history.location.state;
-      if (redirect != null) {
+      if (redirect !== null) {
         return <Redirect to={redirect} push={true} />
       }
       return <Redirect to='/' />
@@ -52,13 +52,13 @@ class Login extends Component {
     return (
       <div className="login">
         <h1 className='header'>Would You Reather</h1>
-        <form className='loginForm'>
+        <form className='loginForm' onSubmit={this.handleLogin}>
             <select 
             value={selected}
             onChange={(event) => this.handleSelectChanged(event)}
             className="tableSelec"
             >
-              <option value={0} disabled>Select user</option>
+              <option value={-1} disabled>Select user</option>
               {Object.keys(users).map(function(key) {
                 return (
                   <option value={users[key].id} key={key}>{users[key].id}</option>

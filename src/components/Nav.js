@@ -40,8 +40,7 @@ function Nav(props) {
               </NavLink>
             </li>
           </div>
-          : <li>
-          </li>
+          : <li></li>
         }
         </div>
     </nav>
